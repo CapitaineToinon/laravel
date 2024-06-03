@@ -13,10 +13,13 @@ const props = defineProps({
 	<nav class="mb-2 border-b">
 		<ul class="flex h-12 items-center gap-2">
 			<li
-				v-for="[label, href] in layout.menu"
+				v-for="[label, href] in props.layout.menu"
 				:key="href"
 			>
-				<Link :href="href">
+				<Link
+					:href="href"
+					:except="['layout', 'ziggy']"
+				>
 					{{ label }}
 				</Link>
 			</li>

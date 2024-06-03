@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StorePageRequest;
 use App\Http\Requests\UpdatePageRequest;
 use App\Models\Page;
+use Illuminate\Mail\Markdown;
 use Inertia\Inertia;
 
 class PageController extends AdminController
@@ -14,8 +15,8 @@ class PageController extends AdminController
      */
     public function index()
     {
-        return Inertia::render("admin/pages/index", [
-            "pages" => Page::paginate(20),
+        return Inertia::render('admin/pages/index', [
+            'pages' => Page::select('id', 'title')->paginate(20),
         ]);
     }
 
@@ -41,7 +42,10 @@ class PageController extends AdminController
     public function show(Page $page)
     {
         return Inertia::render('admin/pages/show', [
-            "page" => $page,
+            'id' => $page->id,
+            'title' => $page->title,
+            'slug' => $page->slug,
+            'content' => Markdown::parse($page['content'])->toHtml(),
         ]);
     }
 
@@ -51,7 +55,7 @@ class PageController extends AdminController
     public function edit(Page $page)
     {
         return Inertia::render('admin/pages/edit', [
-            "page" => $page
+            'page' => $page,
         ]);
     }
 
@@ -61,7 +65,8 @@ class PageController extends AdminController
     public function update(UpdatePageRequest $request, Page $page)
     {
         $page->update($request->validated());
-        return redirect()->route('pages.index')->with("message", "updated");
+
+        return redirect()->route('pages.index');
     }
 
     /**

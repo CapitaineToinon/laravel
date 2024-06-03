@@ -8,21 +8,24 @@ defineOptions({
 })
 
 const props = defineProps({
-	page: {
-		type: Object,
+	id: {
+		type: Number,
+		required: true,
+	},
+	name: {
+		type: String,
 		required: true,
 	},
 })
 
 const form = useForm({
-	title: props.page.title,
-	content: props.page.content,
+	name: props.name,
 })
 
 function submit() {
 	form.patch(
-		route("pages.update", {
-			id: props.page.id,
+		route("games.update", {
+			id: props.id,
 		}),
 	)
 }
@@ -35,10 +38,9 @@ function submit() {
 			class="flex w-full max-w-md flex-col"
 		>
 			<input
-				v-model="form.title"
+				v-model="form.name"
 				type="text"
 			/>
-			<Monaco v-model="form.content" />
 			<button type="submit">Submit</button>
 		</form>
 	</article>

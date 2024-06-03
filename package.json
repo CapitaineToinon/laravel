@@ -29,5 +29,8 @@
 		"plugins": [
 			"prettier-plugin-tailwindcss"
 		]
+	},
+	"dependencies": {
+		"monaco-editor": "^0.49.0"
 	}
 }

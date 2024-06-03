@@ -7,14 +7,16 @@ use Inertia\Inertia;
 
 abstract class AdminController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         Inertia::share([
-            "layout" => fn () => [
-                "menu" => [
-                    ["Admin", route('admin.index')],
-                    ["Pages", route('pages.index')]
-                ]
-            ]
+            'layout' => fn () => [
+                'menu' => [
+                    ['Admin', route('admin.index')],
+                    ['Pages', route('pages.index')],
+                    ['Games', route('games.index')],
+                ],
+            ],
         ]);
     }
 }
